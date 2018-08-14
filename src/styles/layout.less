@@ -1,0 +1,40 @@
+@import "lessConfig";
+.page-main{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.header-top{
+  height: 50px;
+  overflow: hidden;
+  background: black;
+  text-align: center;
+}
+.header-left{
+  height: 100%;
+  width: 50%;
+  float: left;
+  color: white;
+  background: greenyellow;
+}
+.header-right{
+  height: 100%;
+  width: 50%;
+  float: left;
+  color: white;
+}
+.page-content{
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  aside{
+    min-height: 400px;
+    height: 100%;
+    width: 200px;
+    background: wheat;
+  }
+  article{
+    flex: 1;
+  }
+}

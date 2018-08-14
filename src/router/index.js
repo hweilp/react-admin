@@ -5,6 +5,9 @@ import Main from '../views/main'
 import Index from '../views/index/index'
 import Login from '../views/passport/login'
 import Register from '../views/passport/register'
+import UserList from '../views/user/list'
+import AdminList from '../views/admin/list'
+
 //
 
 export default class router extends Component{
@@ -16,6 +19,8 @@ export default class router extends Component{
         <Route path='/' exact render={()=> ( <Redirect to={'/index'}/>)}/>
         <Main>
           <Route exact path={'/index'} component={Index}/>
+          <Route exact path={'/admin/list'} component={AdminList}/>
+          <Route exact path={'/user/list'} component={UserList}/>
         </Main>
 
         {/*{*/}

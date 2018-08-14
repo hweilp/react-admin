@@ -1,0 +1,63 @@
+// Variables
+
+// container
+@container-background-base: rgba(240, 242, 244, 1);
+
+// width
+@contentWidth: 1200px;
+
+// height
+
+// font
+@font-size-base: 14px;
+@font-color-base: rgba(102, 102, 102,1);
+@font-color-hover : rgba(216, 52, 72, 1);
+@font-color-active: rgba(74, 144, 226,1);
+@font-line-height-base: 1;
+
+// a
+@a-color-base: rgba(74, 144, 226, 1);
+@a-color-hover: rgba(64, 169, 255, 1);
+
+
+// border
+@border-radius-base: 4px;
+@border-color-base: #d2d2d2;
+@border-color-active: #d2d2d2;
+
+// button
+@button-font-size-base: 14px;
+@button-font-color-base: white;
+@button-font-color-active: white;
+@button-background-color-base: rgba(64, 169, 255, 1);
+@button-background-color-active: rgba(9, 109, 217, 1);
+@button-border-radius-base: @border-radius-base;
+@button-background-color-fail: rgba(204, 204, 204, 1);
+
+
+// Mixins 混合
+
+// 文字省略
+.text_ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+// 定位居中
+.position_center{
+  position: absolute;
+  top: 0;
+  right:0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+// 浮动清除
+.clear-fix{
+  clear: both;
+  content: "";
+  display: block;
+  overflow: hidden;
+}

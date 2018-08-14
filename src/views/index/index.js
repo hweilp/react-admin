@@ -7,7 +7,7 @@ class Index extends Component{
       <div className="index">
         <div className="index-header">
           this is index
-          <NavLink to="/login">login</NavLink>
+          <NavLink to="/login" style={{marign: '20px 0'}}>login</NavLink>
           <NavLink to="/register">register</NavLink>
         </div>
       </div>

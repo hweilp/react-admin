@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import '../../styles/login.less'
 const FormItem = Form.Item;
 class NormalLoginForm extends Component{
   handleSubmit = (e) => {
