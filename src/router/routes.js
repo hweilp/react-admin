@@ -1,4 +1,5 @@
-import Home from '../views/index/index'
+import Main from '../views/main'
+import Index from '../views/index/index'
 import Login from '../views/passport/login'
 import Register from '../views/passport/register'
 import Error from '../views/error'
@@ -8,10 +9,20 @@ export default {
     {
       key:'/',
       path: '/',
-      title: '首页',
-      icon: 'index',
-      component: Home,
-      pathName: 'Index'
+      title: '',
+      icon: 'main',
+      component: Main,
+      pathName: 'Main',
+      children: [
+        {
+          key:'index',
+          path: 'index',
+          title: '首页',
+          icon: 'index',
+          component: Index,
+          pathName: 'Index',
+        }
+      ]
     },
     {
       key:'/login',

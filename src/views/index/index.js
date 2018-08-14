@@ -5,11 +5,11 @@ class Index extends Component{
   render() {
     return (
       <div className="index">
-        <header className="index-header">
+        <div className="index-header">
           this is index
           <NavLink to="/login">login</NavLink>
           <NavLink to="/register">register</NavLink>
-        </header>
+        </div>
       </div>
     );
   }

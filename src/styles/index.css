@@ -60,3 +60,36 @@ body {
 .ant-form-item:last-child{
   margin-bottom: 0;
 }
+
+.header-top{
+  height: 50px;
+  overflow: hidden;
+  background: black;
+  text-align: center;
+}
+.header-left{
+  height: 100%;
+  width: 50%;
+  float: left;
+  color: white;
+}
+.header-right{
+  height: 100%;
+  width: 50%;
+  float: left;
+  color: white;
+}
+.aside{
+  min-height: 400px;
+  height: 100%;
+  background: black;
+  width: 200px;
+}
+.aside div{
+  width: 100%;
+  background: grey;
+  color: white;
+}
+.slider-item{
+  margin-bottom: 10px;
+}
