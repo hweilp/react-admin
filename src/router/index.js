@@ -1,45 +1,73 @@
 import React, { Component } from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom'
-import Routes from './routes'
-import Main from '../views/main'
-import Index from '../views/index/index'
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+// import Routes from './routes'
+// import Main from '../views/main'
 import Login from '../views/passport/login'
 import Register from '../views/passport/register'
+import Error from '../views/error'
+import Index from '../views/index/index'
 import UserList from '../views/user/list'
 import AdminList from '../views/admin/list'
 
-//
+import HeaderTop from '../components/layout/header'
+import SliderMenu from '../components/layout/sliderMenu'
+import '../styles/layout.less'
 
-export default class router extends Component{
+class Main extends Component{
   render () {
     return (
-      <Switch>
-        <Route exact path={'/login'} component={Login}/>
-        <Route exact path={'/register'} component={Register}/>
-        <Route path='/' exact render={()=> ( <Redirect to={'/index'}/>)}/>
-        <Main>
-          <Route exact path={'/index'} component={Index}/>
-          <Route exact path={'/admin/list'} component={AdminList}/>
-          <Route exact path={'/user/list'} component={UserList}/>
-        </Main>
+      <div className={'page-main'}>
+        <HeaderTop />
+        <div className={'page-content'}>
+          <aside className={'page-aside'}>
+            <SliderMenu/>
+          </aside>
+          <article className={'page-article'}>
+            {this.props.children}
+          </article>
+        </div>
+      </div>
+    )
+  }
+}
+const login = () => (
+  <Switch>
+    <Route exact path={'/login'} component={Login}/>
+    <Route exact path={'/register'} component={Register}/>
+    <Route exact path={'/404'} component={Error}/>
+    <Redirect to={'/404'}/>
+  </Switch>
+)
 
-        {/*{*/}
-          {/*Routes.menu.map(item => {*/}
-            {/*if (item.children) {*/}
-              {/*return <Route exact key={item.key} path={item.path} component={item.component} >*/}
-                {/*{*/}
-                  {/*item.children.map(items => {*/}
-                    {/*return <Route key={items.key} path={items.path} component={items.component}/>*/}
-                  {/*})*/}
-                {/*}*/}
-              {/*</Route>*/}
-            {/*} else {*/}
-              {/*return <Route exact key={item.key} path={item.path} component={item.component}/>*/}
-            {/*}*/}
-          {/*})*/}
-        {/*}*/}
-        <Route path={Routes.errorPage.path} component={Routes.errorPage.component} />
-      </Switch>
+const loginIn = () => (
+  <Switch>
+    <Route exact path={'/'}  render={()=> ( <Redirect to={'/app/index'} push/>)}/>
+    <Route exact path={'/login'} component={Login}/>
+    <Route exact path={'/register'} component={Register}/>
+    <Route exact path={'/404'} component={Error}/>
+    <Main>
+      <Route exact path={'/app/index'} component={Index}/>
+      <Route exact path={'/app/user/list'} component={UserList}/>
+      <Route exact path={'/app/admin/list'} component={AdminList}/>
+    </Main>
+    <Redirect from={'*'} to={'/404'} push/>
+  </Switch>
+)
+
+export default class router extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      auth : true     // 表示是否认证通过
+    };
+  }
+  render () {
+    return (
+      <Router>
+        {
+          this.state.auth ? loginIn() : login()
+        }
+      </Router>
     )
   }
 }

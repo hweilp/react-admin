@@ -4,10 +4,17 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import '../../styles/login.less'
 const FormItem = Form.Item;
 class NormalLoginForm extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      user: ''
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.props.history.push('/');
         console.log(values)
         console.log('Received values of form: ', values);
       }
@@ -51,6 +58,7 @@ class NormalLoginForm extends Component{
     )
   }
 }
+
 const LoginForm = Form.create()(NormalLoginForm);
 export default LoginForm
 

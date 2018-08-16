@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
+// import { Menu, Icon } from 'antd'
 import '../../styles/sliderMenu.less'
 
 
@@ -8,10 +9,10 @@ export default class SliderMenu extends Component{
     return (
       <div className={'aside'}>
         <div className={'slider-item'}>
-          <NavLink to="/user/list">go to UserList</NavLink>
+          <NavLink to="/app/user/list" replace>go to UserList</NavLink>
         </div>
         <div className={'slider-item'}>
-          <NavLink to="/admin/list">go to AdminList</NavLink>
+          <NavLink to="/app/admin/list" replace>go to AdminList</NavLink>
         </div>
       </div>
     )
