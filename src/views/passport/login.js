@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
+import { connect } from 'react-redux'
+import {user_login} from '../../store/action/action'
+
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import '../../styles/login.less'
 const FormItem = Form.Item;
@@ -7,16 +10,18 @@ class NormalLoginForm extends Component{
   constructor(props){
     super(props)
     this.state = {
-      user: ''
+    }
+  }
+  componentWillUpdate(props, state) {
+    if (props.LoginInfo.login) {
+      this.props.history.push('/app/index')
     }
   }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.history.push('/');
-        console.log(values)
-        console.log('Received values of form: ', values);
+        this.props.dispatch(user_login(values))
       }
     });
   };
@@ -60,5 +65,9 @@ class NormalLoginForm extends Component{
 }
 
 const LoginForm = Form.create()(NormalLoginForm);
-export default LoginForm
 
+const mapStateToProps = (state) => {
+  return { LoginInfo: state.LoginReducer }
+};
+
+export default connect(mapStateToProps)(LoginForm)

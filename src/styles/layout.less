@@ -8,24 +8,38 @@
   flex-direction: column;
 }
 .header-top{
+  background: rgba(73, 76, 82, 1);
   height: 50px;
   overflow: hidden;
-  background: black;
   text-align: center;
+  .header-left{
+    text-align: left;
+    padding-left: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    width: 50%;
+    float: left;
+    color: white;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .header-right{
+    text-align: right;
+    padding-right: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    width: 50%;
+    float: left;
+    color: white;
+    line-height: 50px;
+  }
 }
-.header-left{
-  height: 100%;
-  width: 50%;
-  float: left;
-  color: white;
-  background: greenyellow;
-}
-.header-right{
-  height: 100%;
-  width: 50%;
-  float: left;
-  color: white;
-}
+
 .page-content{
   flex: 1;
   height: 100%;
