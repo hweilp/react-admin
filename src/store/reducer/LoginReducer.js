@@ -16,7 +16,6 @@ const LoginReducer = (state = initState, data) => {
     case Types.USER_LOGINOUT :
       state.userInfo = {}
       state.login = false
-      console.log('loginout')
       Storage.remove('USERINFO')
       return {...state}
     default :

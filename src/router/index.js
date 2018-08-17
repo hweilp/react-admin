@@ -36,10 +36,10 @@ class Main extends Component{
 const login = () => (
   <Switch>
     <Route exact path={'/login'} component={Login}/>
-    <Route exact path={'/'}  render={()=> ( <Redirect to={'/login'} push/>)}/>
+    <Route exact path={'/'} component={Login}/>
     <Route exact path={'/register'} component={Register}/>
     <Route exact path={'/404'} component={Error}/>
-    <Redirect to={'/404'}/>
+    <Redirect to={'/login'} />
   </Switch>
 )
 
