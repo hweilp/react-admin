@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+
 // import Routes from './routes'
 // import Main from '../views/main'
 import Login from '../views/passport/login'
@@ -35,7 +38,7 @@ const login = () => (
     <Route exact path={'/login'} component={Login}/>
     <Route exact path={'/register'} component={Register}/>
     <Route exact path={'/404'} component={Error}/>
-    <Redirect to={'/404'}/>
+    {/*<Redirect to={'/404'}/>*/}
   </Switch>
 )
 
@@ -54,20 +57,26 @@ const loginIn = () => (
   </Switch>
 )
 
-export default class router extends Component{
+class router extends Component{
   constructor(props){
     super(props);
     this.state = {
-      auth : true     // 表示是否认证通过
     };
   }
   render () {
     return (
       <Router>
         {
-          this.state.auth ? loginIn() : login()
+          this.props.userInfo.userName ? loginIn() : login()
         }
       </Router>
     )
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return { userInfo: state.LoginReducer.userInfo }
+};
+
+export default connect(mapStateToProps)(router)

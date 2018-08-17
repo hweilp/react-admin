@@ -1,5 +1,5 @@
 import formatDate from './formatDate'
+import storage from './storage'
 
-export default {
-  formatDate
-}
+export const Storage = storage
+export const FormatDate = formatDate

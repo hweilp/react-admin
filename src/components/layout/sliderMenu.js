@@ -9,6 +9,9 @@ export default class SliderMenu extends Component{
     return (
       <div className={'aside'}>
         <div className={'slider-item'}>
+          <NavLink to="/app/index" replace>go to index</NavLink>
+        </div>
+        <div className={'slider-item'}>
           <NavLink to="/app/user/list" replace>go to UserList</NavLink>
         </div>
         <div className={'slider-item'}>

@@ -7,7 +7,7 @@ export default class Admin extends Component{
         this is admin
         <style>
           {`
-            .admin{background: green; height:100%;}
+            .admin{background: #e7f5e7; height:100%;}
           `}
         </style>
       </div>

@@ -37,6 +37,28 @@
     float: left;
     color: white;
     line-height: 50px;
+    position: relative;
+    .user-name{
+      cursor: pointer;
+      .anticon{
+        font-size: 14px;
+        position: relative;
+        top:1px;
+      }
+    }
+    .drop-down{
+      width: 100px;
+      position: absolute;
+      right:0;
+      top:0;
+      text-align: left;
+      background: grey;
+      z-index: 999;
+      .ant-menu-item{
+        height: 40px;
+        line-height: 40px;
+      }
+    }
   }
 }
 
