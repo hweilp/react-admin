@@ -16,29 +16,12 @@ import HeaderTop from '../components/layout/header'
 import SliderMenu from '../components/layout/sliderMenu'
 import '../styles/layout.less'
 
-class Main extends Component{
-  render () {
-    return (
-      <div className={'page-main'}>
-        <HeaderTop />
-        <div className={'page-content'}>
-          <aside className={'page-aside'}>
-            <SliderMenu/>
-          </aside>
-          <article className={'page-article'}>
-            {this.props.children}
-          </article>
-        </div>
-      </div>
-    )
-  }
-}
 const login = () => (
   <Switch>
     <Route exact path={'/login'} component={Login}/>
     <Route exact path={'/'} component={Login}/>
     <Route exact path={'/register'} component={Register}/>
-    <Route exact path={'/404'} component={Error}/>
+    <Route exact path={'/error'} component={Error}/>
     <Redirect to={'/login'} />
   </Switch>
 )
@@ -48,13 +31,29 @@ const loginIn = () => (
     <Route exact path={'/'}  render={()=> ( <Redirect to={'/app/index'} push/>)}/>
     <Route exact path={'/login'} component={Login}/>
     <Route exact path={'/register'} component={Register}/>
-    <Route exact path={'/404'} component={Error}/>
-    <Main>
-      <Route exact path={'/app/index'} component={Index}/>
-      <Route exact path={'/app/user/list'} component={UserList}/>
-      <Route exact path={'/app/admin/list'} component={AdminList}/>
-    </Main>
-    <Redirect from={'*'} to={'/404'} push/>
+    <Route exact path={'/error'} component={Error}/>
+    <Route
+      path="/app"
+      render={() =>
+        <div className={'page-main'}>
+          <HeaderTop />
+          <div className={'page-content'}>
+            <aside className={'page-aside'}>
+              <SliderMenu/>
+            </aside>
+            <article className={'page-article'}>
+                <Switch>
+                  <Route exact path={`/app/index`} component={Index}/>
+                  <Route exact path={`/app/user/list`} component={UserList}/>
+                  <Route exact path={`/app/admin/list`} component={AdminList}/>
+                  <Route render={()=> ( <Redirect to={'/error'} push/>)}/>
+                </Switch>
+            </article>
+          </div>
+        </div>
+      }
+    />
+    <Route render={()=> ( <Redirect to={'/error'} push/>)}/>
   </Switch>
 )
 
