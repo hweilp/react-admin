@@ -1,24 +1,15 @@
 @import "./lessConfig";
 
-.slider-item{
-  width: 100%;
-  height: 40px;
-  background: white;
-  padding: 0 0 0 20px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  line-height: 40px;
-  margin-bottom: 10px;
-  &:last-child{
-    margin-bottom: 0;
-  }
+.aside{
+  height: 100%;
 }
-.registerForm form{
-  background: white;
-  padding: 20px;
-  border-radius: @border-radius-base;
-  height: 370px;
-  width: 370px;
-  .position_center;
+.aside .ant-menu{
+  height: 100%;
+  .ant-menu-item{
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .ant-menu-item > a{
+    display: inline-block;
+  }
 }

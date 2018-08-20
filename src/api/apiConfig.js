@@ -41,6 +41,9 @@ instanceRequest.interceptors.response.use(data => {
   if (data.data.code === 2000) {
     responseData = data.data
   } else {
+    if (data.data.code === 4001) {
+      // Storage.remove('USERINFO')
+    }
     message.error(data.data.msg)
   }
   return responseData

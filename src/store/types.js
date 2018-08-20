@@ -6,3 +6,4 @@ export const SHOW_LOGIN_PAGE = 'SHOW_LOGIN_PAGE';
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGINOUT = 'USER_LOGINOUT';
+export const USER_LIST = 'USER_LIST';

@@ -2,7 +2,7 @@
 .base-container{
   height: 100%;
 }
-.page-main{
+.page-container{
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -75,5 +75,31 @@
   }
   article{
     flex: 1;
+  }
+  .page-main{
+    height:100%;
+  }
+  .page-title{
+    padding:0 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    h3{
+      line-height: 50px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+  .page-opr{
+    padding:0 20px;
+    button{
+      margin-left: 10px;
+      &:first-child{
+        margin-left: 0;
+      }
+    }
+  }
+  .page-area{
+    padding: 20px;
   }
 }

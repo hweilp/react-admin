@@ -31,7 +31,7 @@ const loginIn = () => (
     <Route
       path="/app"
       render={() =>
-        <div className={'page-main'}>
+        <div className={'page-container'}>
           <HeaderTop />
           <div className={'page-content'}>
             <aside className={'page-aside'}>
@@ -40,7 +40,7 @@ const loginIn = () => (
             <article className={'page-article'}>
                 <Switch>
                   {
-                    Routes.menu. map(item => {
+                    Routes.menu.map(item => {
                       return <Route exact path={item.path} component={item.component} key={item.key}/>
                     })
                   }
