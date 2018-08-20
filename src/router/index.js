@@ -3,14 +3,10 @@ import { connect } from 'react-redux'
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 
-// import Routes from './routes'
-// import Main from '../views/main'
+import Routes from './routes'
 import Login from '../views/passport/login'
 import Register from '../views/passport/register'
 import Error from '../views/error'
-import Index from '../views/index/index'
-import UserList from '../views/user/list'
-import AdminList from '../views/admin/list'
 
 import HeaderTop from '../components/layout/header'
 import SliderMenu from '../components/layout/sliderMenu'
@@ -28,7 +24,7 @@ const login = () => (
 
 const loginIn = () => (
   <Switch>
-    <Route exact path={'/'}  render={()=> ( <Redirect to={'/app/index'} push/>)}/>
+    <Route exact path={'/'}  render={()=> ( <Redirect to={'/app/index'}/>)}/>
     <Route exact path={'/login'} component={Login}/>
     <Route exact path={'/register'} component={Register}/>
     <Route exact path={'/error'} component={Error}/>
@@ -43,17 +39,19 @@ const loginIn = () => (
             </aside>
             <article className={'page-article'}>
                 <Switch>
-                  <Route exact path={`/app/index`} component={Index}/>
-                  <Route exact path={`/app/user/list`} component={UserList}/>
-                  <Route exact path={`/app/admin/list`} component={AdminList}/>
-                  <Route render={()=> ( <Redirect to={'/error'} push/>)}/>
+                  {
+                    Routes.menu. map(item => {
+                      return <Route exact path={item.path} component={item.component} key={item.key}/>
+                    })
+                  }
+                  <Route render={()=> ( <Redirect to={'/error'}/>)}/>
                 </Switch>
             </article>
           </div>
         </div>
       }
     />
-    <Route render={()=> ( <Redirect to={'/error'} push/>)}/>
+    <Route render={()=> ( <Redirect to={'/error'}/>)}/>
   </Switch>
 )
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Menu, Dropdown, Icon } from 'antd'
+import { Menu, Dropdown, Icon, message } from 'antd'
 import { user_login_out } from '../../store/action/action'
 import { Loginout } from '../../api'
 
@@ -15,6 +15,7 @@ class HeaderTop extends Component{
   }
   loginOut = (e) => {
     Loginout().then( res => {
+      message.success(res.msg)
       this.props.dispatch(user_login_out())
     })
   }
