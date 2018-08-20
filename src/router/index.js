@@ -67,7 +67,7 @@ class router extends Component{
     return (
       <Router>
         {
-          this.props.userInfo.userName ? loginIn() : login()
+          this.props.userInfo.user_name ? loginIn() : login()
         }
       </Router>
     )

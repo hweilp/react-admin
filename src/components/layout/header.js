@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Menu, Dropdown, Icon } from 'antd'
 import { user_login_out } from '../../store/action/action'
-
+import { Loginout } from '../../api'
 
 
 class HeaderTop extends Component{
@@ -14,7 +14,9 @@ class HeaderTop extends Component{
     }
   }
   loginOut = (e) => {
-    this.props.dispatch(user_login_out())
+    Loginout().then( res => {
+      this.props.dispatch(user_login_out())
+    })
   }
   handleVisibleChange = (visible) => {
     this.setState({ visible });
@@ -46,7 +48,7 @@ class HeaderTop extends Component{
             visible={this.state.visible}
           >
             <a className="ant-dropdown-link" style={{color:'rgb(120, 182, 255)'}}>
-              {userInfo.userName}<Icon type="down" />
+              {userInfo.user_name}<Icon type="down" />
             </a>
           </Dropdown>
 

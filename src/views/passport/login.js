@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {user_login} from '../../store/action/action'
+import { user_login } from '../../store/action/action'
+import { Login } from '../../api'
 
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import { Form, Icon, Input, Button } from 'antd'
 import '../../styles/login.less'
 const FormItem = Form.Item;
 class NormalLoginForm extends Component{
@@ -21,7 +22,10 @@ class NormalLoginForm extends Component{
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(user_login(values))
+        Login(values).then( res => {
+          this.props.dispatch(user_login(res.data))
+        })
+
       }
     });
   };
@@ -29,10 +33,10 @@ class NormalLoginForm extends Component{
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={'loginForm'}>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <h3>欢迎登录</h3>
           <FormItem>
-            {getFieldDecorator('userName', {
+            {getFieldDecorator('user_name', {
               rules: [{ required: true, message: '请输入用户名!' }],
             })(
               <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
@@ -46,14 +50,14 @@ class NormalLoginForm extends Component{
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>记住我</Checkbox>
-            )}
+            {/*{getFieldDecorator('remember', {*/}
+              {/*valuePropName: 'checked',*/}
+              {/*initialValue: true,*/}
+            {/*})(*/}
+              {/*<Checkbox>记住我</Checkbox>*/}
+            {/*)}*/}
             {/*<a className="login-form-forgot" href="" style={{float: 'right'}}>忘记密码</a>*/}
-            <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
+            <Button onClick={this.handleSubmit} type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
               登录
             </Button>
             或 <NavLink to='/register'>现在就去注册!</NavLink>
