@@ -30,10 +30,17 @@ input{
 .fl{ float: left; }
 .fr{ float: right;}
 
-.a-info{ color: @a-color-hover;}
+.a-info{
+  color: @a-color-base;
+  &:hover{
+    color: @a-color-hover;
+  }
+}
 .a-success{ color: @a-color-success;}
 .a-warning{ color: @a-color-waring;}
 .a-danger{
   color: @a-color-danger;
-  &:hover{}
+  &:hover{
+    color: @a-color-danger-hover;
+  }
 }
