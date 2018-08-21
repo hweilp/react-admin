@@ -1,5 +1,6 @@
 import Index from '../views/index/index'
 import UserList from '../views/user/list'
+import UserAdd from '../views/user/add'
 import AdminList from '../views/admin/list'
 
 export default {
@@ -18,14 +19,19 @@ export default {
       path: '/app/user/list',
       title: '用户',
       icon: 'user',
-      component: UserList,
-      pathName: 'UserList',
       auth:[],
       children: [
         {
           key:'10012',
           path: '/app/user/list',
+          component: UserList,
           title: '用户列表',
+        },
+        {
+          key:'10013',
+          path: '/app/user/add',
+          component: UserAdd,
+          title: '用户添加',
         }
       ]
     },

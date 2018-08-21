@@ -41,7 +41,10 @@ const loginIn = () => (
                 <Switch>
                   {
                     Routes.menu.map(item => {
-                      return <Route exact path={item.path} component={item.component} key={item.key}/>
+                      const route = (r) => (
+                        <Route exact path={r.path} component={r.component} key={r.key}/>
+                      )
+                      return item.component ? route(item) : item.children.map(r => route(r));
                     })
                   }
                   <Route render={()=> ( <Redirect to={'/error'}/>)}/>

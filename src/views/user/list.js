@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Table } from 'antd'
+import { Button, Table, Modal } from 'antd'
 import { connect } from 'react-redux'
 // import { user_list } from '../../store/action/action'
 import { UserList } from '../../api'
@@ -11,31 +11,42 @@ class UserLists extends Component{
     this.state = {
       selectedRowKeys: [],
       loading: false,
+      tabLoading: false,
       data: this.props.UserList.list,
       columns: [
         {
           title: '姓名',
-          dataIndex: 'user_name'
+          dataIndex: 'user_name',
+          align: 'center'
         },
         {
           title: '电话',
-          dataIndex: 'user_mobile'
+          dataIndex: 'user_mobile',
+          align: 'center'
         },
         {
-          title: '密码',
-          dataIndex: 'password'
+          title: '头像',
+          dataIndex: 'user_avatar',
+          align: 'center',
+          render: (text, record) => (
+            <span>
+              <img className={'table-img'} src={record.user_avatar} alt=""/>
+            </span>
+          )
         },
         {
           title: '注册时间',
-          dataIndex: 'created_at'
+          dataIndex: 'created_at',
+          align: 'center'
         },
         {
           title: '操作',
           key: 'action',
+          align: 'center',
           render: (text, record) => (
             <span>
-              <a className={'a-info'} onClick={this.handleEdit.bind(this, record.id)}>编辑</a>
-              <a className={'a-danger'} style={{marginLeft:'5px'}} onClick={this.handleDelete.bind(this, record.id)}>删除</a>
+              <a className={'a-info'} onClick={this.handleEdit.bind(this, record)}>编辑</a>
+              <a className={'a-danger'} style={{marginLeft:'5px'}} onClick={this.handleDelete.bind(this, record)}>删除</a>
             </span>
           )
         }
@@ -53,6 +64,9 @@ class UserLists extends Component{
   }
   // 数据获取
   async getData () {
+    this.setState({
+      tabLoading: true
+    })
     const data = await UserList().then(res => {
       return res.data
     })
@@ -60,6 +74,7 @@ class UserLists extends Component{
       return item.key = item.id
     })
     this.setState({
+      tabLoading: false,
       loading: false,
       data: data.list
     })
@@ -75,14 +90,27 @@ class UserLists extends Component{
   }
   // 分页
   pageChange = (page, pageSize) => {
-    console.log(page, pageSize)
+    // console.log(page, pageSize)
   }
-  handleEdit = (event) => {
-    console.log(event)
+  handleEdit = (val) => {
+    console.log(val)
   }
   // 删除
-  handleDelete = (event) => {
-    console.log(event)
+  handleDelete = (val) => {
+    console.log(val)
+    Modal.confirm({
+      title: '提示',
+      content: '确认删除该记录？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        console.log('ok')
+      },
+      onCancel: () => {
+        console.log('onCancel')
+
+      },
+    })
   }
   render() {
     const { loading, selectedRowKeys, columns} = this.state
@@ -95,8 +123,16 @@ class UserLists extends Component{
       defaultCurrent: this.state.pageOptions.current,
       pageSize: this.state.pageOptions.pageSize,
       showSizeChanger: true,
+      showQuickJumper: true,
+      size: 'small',
+      itemRender: (current, type, originalElement) => {
+        if (type === 'pageSize') {
+          return <a>条</a>
+        }
+        return originalElement;
+      },
       showTotal:(total, range)=> (`共 ${total} 条`),
-      pageSizeOptions: ['5', '10', '15', '20'],
+      pageSizeOptions: ['5', '10', '20', '40'],
       onShowSizeChange: (current, pageSize) => {
         this.pageChange(current, pageSize)
       },
@@ -110,11 +146,12 @@ class UserLists extends Component{
           <h3>用户列表</h3>
         </div>
         <div className={'page-opr'}>
+          <Button icon="plus">添加</Button>
           <Button icon="search">搜索</Button>
           <Button onClick={this.reload} loading={loading} icon="reload">刷新</Button>
         </div>
         <div className={'page-area'}>
-          <Table bordered rowSelection={rowSelection} columns={columns} dataSource={this.state.data} pagination={pageOptions}/>
+          <Table loading={this.state.tabLoading} bordered rowSelection={rowSelection} columns={columns} dataSource={this.state.data} pagination={pageOptions}/>
         </div>
       </div>
     );

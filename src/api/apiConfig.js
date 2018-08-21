@@ -38,7 +38,7 @@ instanceRequest.interceptors.request.use(config => {
 instanceRequest.interceptors.response.use(data => {
   // 响应成功
   let responseData = {}; // 返回数据
-  if (data.data.code === 2000) {
+  if (data.data.code.toString().indexOf('200') !== -1) {
     responseData = data.data
   } else {
     if (data.data.code === 4001) {

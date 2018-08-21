@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import { Form, Icon, Input, Button, message} from 'antd'
+import { Register } from '../../api'
 import '../../styles/register.less'
+
 const FormItem = Form.Item;
 class NormalLoginForm extends Component{
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
-        console.log('Received values of form: ', values);
+        Register(values).then(res => {
+          if (res.code) {
+            message.success(res.msg)
+            this.props.history.push('/login')
+          }
+        })
       }
     });
   };
@@ -20,7 +26,7 @@ class NormalLoginForm extends Component{
         <Form onSubmit={this.handleSubmit}>
           <h3>注 册</h3>
           <FormItem>
-            {getFieldDecorator('userName', {
+            {getFieldDecorator('user_name', {
               rules: [{ required: true, message: '请输入用户名!' }],
             })(
               <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
@@ -41,12 +47,12 @@ class NormalLoginForm extends Component{
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>记住我</Checkbox>
-            )}
+            {/*{getFieldDecorator('remember', {*/}
+              {/*valuePropName: 'checked',*/}
+              {/*initialValue: true,*/}
+            {/*})(*/}
+              {/*<Checkbox>记住我</Checkbox>*/}
+            {/*)}*/}
             <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
               注 册
             </Button>
