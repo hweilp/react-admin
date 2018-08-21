@@ -18,13 +18,9 @@ const instanceRequest = Axios.create({
 //------------------------------ http请求拦截器 -------------------------------
 instanceRequest.interceptors.request.use(config => {
   // 配置headers token
-  // let userInfo = Storage.get('USERINFO')
-  // if(store.state.USER.token){
-  //   config.headers = {'Authorization': 'bearer ' + store.state.USER.token};
-  // }else {
-  //   config.data = qs.stringify(config.data);
+  // if (Storage.get('USERINFO').session_id) {
+    // config.headers = { 'SESSION_ID': Storage.get('USERINFO').session_id}
   // }
-  // message.loading()
   if (config.method === 'post') {
     config.data = qs.stringify(config.data) // qs格式化
   }

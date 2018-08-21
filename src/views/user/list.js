@@ -67,16 +67,17 @@ class UserLists extends Component{
     this.setState({
       tabLoading: true
     })
-    const data = await UserList().then(res => {
-      return res.data
-    })
-    data.list.map(item => {
-      return item.key = item.id
-    })
+    const data = await UserList().then(res => (res))
+    if (data.data) {
+      data.data.list.map(item => {
+        return item.key = item.id
+      })
+    }
+
     this.setState({
       tabLoading: false,
       loading: false,
-      data: data.list
+      data: data.data ? data.data.list : []
     })
   }
   // 刷新
