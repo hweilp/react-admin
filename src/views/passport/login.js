@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { user_login } from '../../store/action/action'
 import { Login } from '../../api'
 
-import { Form, Icon, Input, Button } from 'antd'
+import { Form, Icon, Input, Button, message } from 'antd'
 import '../../styles/login.less'
 const FormItem = Form.Item;
 class NormalLoginForm extends Component{
@@ -23,7 +23,10 @@ class NormalLoginForm extends Component{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         Login(values).then( res => {
-          this.props.dispatch(user_login(res.data))
+          if (res.code === 2000) {
+            message.success(res.msg)
+            this.props.dispatch(user_login(res.data))
+          }
         })
 
       }

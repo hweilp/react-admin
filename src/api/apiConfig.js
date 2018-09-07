@@ -10,7 +10,7 @@ let Base = 'http://www.hw.com:8081'
 const instanceRequest = Axios.create({
   baseURL: Base,
   headers: {
-    'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8',
+    'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'
   },
   timeout : 5000,
 });
