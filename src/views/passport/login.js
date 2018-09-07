@@ -28,10 +28,9 @@ class NormalLoginForm extends Component{
             this.props.dispatch(user_login(res.data))
           }
         })
-
       }
-    });
-  };
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (

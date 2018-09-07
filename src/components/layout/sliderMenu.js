@@ -25,20 +25,27 @@ export default class SliderMenu extends Component{
         >
           {
             Routes.menu.map(item => {
-              if (item.children) {
-                return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
-                  {
-                    item.children.map(items => {
-                      return <Menu.Item key={items.key}><NavLink to={items.path} replace>{items.title}</NavLink></Menu.Item>
-
-                    })
-                  }
-                </SubMenu>
+              if (!item.noShow) {
+                if (item.children) {
+                  return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
+                    {
+                      item.children.map(items => {
+                        if (!items.noShow) {
+                          return <Menu.Item key={items.key}><NavLink to={items.path} replace>{items.title}</NavLink></Menu.Item>
+                        } else {
+                          return null
+                        }
+                      })
+                    }
+                  </SubMenu>
+                } else {
+                  return  <Menu.Item key={item.key}>
+                    <Icon type={item.icon} />
+                    <NavLink to={item.path} replace>{item.title}</NavLink>
+                  </Menu.Item>
+                }
               } else {
-                return  <Menu.Item key={item.key}>
-                  <Icon type={item.icon} />
-                  <NavLink to={item.path} replace>{item.title}</NavLink>
-                </Menu.Item>
+                return null
               }
             })
           }

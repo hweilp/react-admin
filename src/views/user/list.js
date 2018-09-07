@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Table, Modal } from 'antd'
+import { NavLink } from 'react-router-dom'
+import { Button, Table, Modal, message } from 'antd'
 import { connect } from 'react-redux'
-// import { user_list } from '../../store/action/action'
-import { UserList } from '../../api'
+import { UserList, UserDelete } from '../../api'
 
 
 class UserLists extends Component{
@@ -45,7 +45,7 @@ class UserLists extends Component{
           align: 'center',
           render: (text, record) => (
             <span>
-              <a className={'a-info'} onClick={this.handleEdit.bind(this, record)}>编辑</a>
+              <NavLink className={'a-info'} to={'/app/user/detail?id=' + record.id + '&type=2'}>编辑</NavLink>
               <a className={'a-danger'} style={{marginLeft:'5px'}} onClick={this.handleDelete.bind(this, record)}>删除</a>
             </span>
           )
@@ -93,24 +93,33 @@ class UserLists extends Component{
   pageChange = (page, pageSize) => {
     // console.log(page, pageSize)
   }
+  handleAdd = () => {
+    this.props.history.push('/app/user/detail')
+  }
   handleEdit = (val) => {
-    console.log(val)
+    this.props.history.push({pathname: '/app/user/detail', query: {id: val.id}})
   }
   // 删除
   handleDelete = (val) => {
-    console.log(val)
+    let that = this
     Modal.confirm({
       title: '提示',
-      content: '确认删除该记录？',
+      content: '确认删除用户 ' + val.user_name,
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
         console.log('ok')
+        UserDelete({id: val.id}).then(res => {
+          if (res.code === 2000) {
+            message.success(res.msg)
+            that.getData()
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       },
       onCancel: () => {
-        console.log('onCancel')
-
-      },
+      }
     })
   }
   render() {
@@ -147,8 +156,8 @@ class UserLists extends Component{
           <h3>用户列表</h3>
         </div>
         <div className={'page-opr'}>
-          <Button icon="plus">添加</Button>
-          <Button icon="search">搜索</Button>
+          <Button icon="plus" onClick={this.handleAdd}>添加</Button>
+          {/*<Button icon="search">搜索</Button>*/}
           <Button onClick={this.reload} loading={loading} icon="reload">刷新</Button>
         </div>
         <div className={'page-area'}>

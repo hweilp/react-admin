@@ -1,22 +1,43 @@
 import React, { Component } from 'react'
 import { Form, Input, Icon, Button, message} from 'antd'
-import { UsersAdd } from '../../api'
-
+import { UserDetail, UserUpdate } from '../../api'
+import { GetRequest } from '../../utils'
 
 const FormItem = Form.Item;
 
-
-class UserAddForm extends Component {
+class UserDetailForm extends Component {
   constructor (props) {
     super (props)
     this.state = {
       confirmDirty: false,
       userInfo: {
-        user_name: 'admin',
-        password: '223232',
-        user_mobile: '18397907788'
+        user_id: '',
+        user_name: '',
+        password: '',
+        user_mobile: '',
+        user_avatar: ''
       }
     }
+  }
+  componentWillMount = () => {
+    this.getData()
+  }
+  getData = () => {
+    let { id } = GetRequest(this.props.location.search)
+    UserDetail({params: {id: id}}).then(res => {
+      let data = res.data.list[0]
+      this.setState({
+        userInfo: {
+          user_id: data.user_id,
+          user_name: data.user_name,
+          password: data.password,
+          user_mobile: data.user_mobile,
+          user_avatar: 'http://www.hw.com:8081/upload/1530155645979.png'
+        }
+      })
+    }).catch(err => {
+      console.log(err)
+    })
   }
   goBack = () => {
     this.props.history.goBack()
@@ -53,14 +74,19 @@ class UserAddForm extends Component {
       callback()
     }
   }
-
+  handleInputChange (e) {
+    console.log(e)
+  }
 
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        UsersAdd(values).then( res => {
+        console.log(values)
+        values.user_id = this.state.userInfo.user_id
+        delete values.confirm
+        UserUpdate(values).then( res => {
           if (res.code === 2000) {
             message.success(res.msg)
             this.props.history.push('/app/user/list')
@@ -85,7 +111,7 @@ class UserAddForm extends Component {
     return (
       <div className="page-main">
         <div className={'page-title'}>
-          <h3>用户添加</h3>
+          <h3>用户编辑</h3>
         </div>
         <div className={'page-opr'}>
           <Button icon="arrow-left" onClick={this.goBack}>返回</Button>
@@ -97,6 +123,7 @@ class UserAddForm extends Component {
               label="用户名"
             >
               {getFieldDecorator('user_name', {
+                initialValue: this.state.userInfo.user_name,
                 rules: [{ required: true, message: '请输入用户名!' }],
               })(
                 <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
@@ -107,6 +134,7 @@ class UserAddForm extends Component {
               label="密码"
             >
               {getFieldDecorator('password', {
+                initialValue: this.state.userInfo.password,
                 rules: [
                   { required: true, message: '请输入密码!' },
                   { validator: this.validatorPassword }
@@ -120,6 +148,7 @@ class UserAddForm extends Component {
               label="确认密码"
             >
               {getFieldDecorator('confirm', {
+                initialValue: this.state.userInfo.password,
                 rules: [
                   { required: true, message: '请确认密码!' },
                   { validator: this.compareToFirstPassword}
@@ -133,6 +162,7 @@ class UserAddForm extends Component {
               label="电话号码"
             >
               {getFieldDecorator('user_mobile', {
+                initialValue: this.state.userInfo.user_mobile,
                 rules: [
                   { required: true, message: '请输入电话号码!' },
                   { validator: this.validatorPhone}
@@ -142,13 +172,20 @@ class UserAddForm extends Component {
               )}
             </FormItem>
             <FormItem
+              {...formItemLayout}
+              label="用户头像"
+            >
+              <img id={'imgFileShow'} src={this.state.userInfo.user_avatar} style={{width: '100px', height: '80px', cursor: 'pointer'}}/>
+              <input className={'uploadImg'} id={'inputFile'} type='file' onChange={this.handleInputChange.bind(this)}/>
+            </FormItem>
+            <FormItem
               wrapperCol={{
                 xs: { span: 24, offset: 0 },
                 sm: { span: 20, offset: 4 },
               }}
             >
               <Button onClick={this.handleSubmit} type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
-                添加
+                编辑
               </Button>
             </FormItem>
           </Form>
@@ -157,6 +194,6 @@ class UserAddForm extends Component {
     )
   }
 }
-const UserAdd = Form.create()(UserAddForm)
+const UsersDetail = Form.create()(UserDetailForm)
 
-export default UserAdd
+export default UsersDetail
