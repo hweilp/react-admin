@@ -1,16 +1,32 @@
 import React, { Component } from 'react'
-import { Form, Input, Icon, Button, message} from 'antd'
-import ImgUpload from '../../components/imgUpload/imgUpload'
+import { Form, Input, Icon, Button, message, Upload} from 'antd'
+// import ImgUpload from '../../components/imgUpload/imgUpload'
 import { UserDetail, UserUpdate } from '../../api'
+import { BaseUrl } from '../../api/apiConfig'
 import { GetRequest } from '../../utils'
 
 const FormItem = Form.Item;
+
+function beforeUpload(file) {
+  const isJPG = file.type === 'image/jpeg';
+  if (!isJPG) {
+    message.error('You can only upload JPG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJPG && isLt2M;
+}
+
 
 class UserDetailForm extends Component {
   constructor (props) {
     super (props)
     this.state = {
       confirmDirty: false,
+      loading: false,
+      UploadRequestUrl: BaseUrl,
       userInfo: {
         user_id: '',
         user_name: '',
@@ -33,7 +49,7 @@ class UserDetailForm extends Component {
           user_name: data.user_name,
           password: data.password,
           user_mobile: data.user_mobile,
-          user_avatar: 'http://www.hw.com:8081/upload/1530155645979.png'
+          user_avatar: data.user_avatar
         }
       })
     }).catch(err => {
@@ -75,14 +91,15 @@ class UserDetailForm extends Component {
       callback()
     }
   }
-  handleInputChange (e) {
-    console.log(e)
-    // let FileObj = e.currentTarget.files[0]
-    // const UserInfo = this.state.userInfo
-    // UserInfo.user_avatar = FileObj.name
-    // this.setState({
-    //   userInfo: UserInfo
-    // })
+  handleInputChange = (info) => {
+    let data = info.file.response || {}
+    if (data.code && data.code === 2000) {
+      const UserInfo = this.state.userInfo
+      UserInfo.user_avatar = data.data.allPath
+      this.setState({
+        userInfo: UserInfo
+      })
+    }
   }
 
 
@@ -90,8 +107,8 @@ class UserDetailForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
         values.user_id = this.state.userInfo.user_id
+        values.user_avatar = this.state.userInfo.user_avatar
         delete values.confirm
         UserUpdate(values).then( res => {
           if (res.code === 2000) {
@@ -114,6 +131,13 @@ class UserDetailForm extends Component {
         sm: { span: 20 },
       }
     }
+    const imageUrl = this.state.userInfo.user_avatar
+    const uploadButton = (
+      <div>
+        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    )
 
     return (
       <div className="page-main">
@@ -182,9 +206,20 @@ class UserDetailForm extends Component {
               {...formItemLayout}
               label="用户头像"
             >
-              <ImgUpload imgUrl={this.state.userInfo.user_avatar} upOnChange={this.handleInputChange}/>
-              {/*<img id={'imgFileShow'} src={this.state.userInfo.user_avatar} style={{width: '100px', height: '80px', cursor: 'pointer'}} alt={''}/>*/}
-              {/*<input className={'uploadImg'} id={'inputFile'} type='file' onChange={this.handleInputChange.bind(this)}/>*/}
+              {/*<ImgUpload imgUrl={this.state.userInfo.user_avatar} upOnChange={this.handleInputChange}/>*/}
+              <div style={{width: '105px', height: '105px'}}>
+                <Upload
+                  name="file"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={false}
+                  action={'http://www.hw.com:8081/api/upload'}
+                  beforeUpload={beforeUpload}
+                  onChange={this.handleInputChange}
+                >
+                  {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                </Upload>
+              </div>
             </FormItem>
             <FormItem
               wrapperCol={{

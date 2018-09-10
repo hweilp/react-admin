@@ -123,11 +123,15 @@ class UserLists extends Component{
     })
   }
   render() {
-    const { loading, selectedRowKeys, columns} = this.state
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    }
+    const {
+      loading,
+      columns
+      // selectedRowKeys
+    } = this.state
+    // const rowSelection = {
+    //   selectedRowKeys,
+    //   onChange: this.onSelectChange,
+    // }
     let pageOptions = {
       total: this.state.pageOptions.total,
       defaultCurrent: this.state.pageOptions.current,
@@ -161,7 +165,7 @@ class UserLists extends Component{
           <Button onClick={this.reload} loading={loading} icon="reload">刷新</Button>
         </div>
         <div className={'page-area'}>
-          <Table loading={this.state.tabLoading} bordered rowSelection={rowSelection} columns={columns} dataSource={this.state.data} pagination={pageOptions}/>
+          <Table loading={this.state.tabLoading} bordered  columns={columns} dataSource={this.state.data} pagination={pageOptions}/>
         </div>
       </div>
     );
