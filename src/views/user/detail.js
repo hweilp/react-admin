@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Input, Icon, Button, message} from 'antd'
+import ImgUpload from '../../components/imgUpload/imgUpload'
 import { UserDetail, UserUpdate } from '../../api'
 import { GetRequest } from '../../utils'
 
@@ -76,6 +77,12 @@ class UserDetailForm extends Component {
   }
   handleInputChange (e) {
     console.log(e)
+    // let FileObj = e.currentTarget.files[0]
+    // const UserInfo = this.state.userInfo
+    // UserInfo.user_avatar = FileObj.name
+    // this.setState({
+    //   userInfo: UserInfo
+    // })
   }
 
 
@@ -175,8 +182,9 @@ class UserDetailForm extends Component {
               {...formItemLayout}
               label="用户头像"
             >
-              <img id={'imgFileShow'} src={this.state.userInfo.user_avatar} style={{width: '100px', height: '80px', cursor: 'pointer'}}/>
-              <input className={'uploadImg'} id={'inputFile'} type='file' onChange={this.handleInputChange.bind(this)}/>
+              <ImgUpload imgUrl={this.state.userInfo.user_avatar} upOnChange={this.handleInputChange}/>
+              {/*<img id={'imgFileShow'} src={this.state.userInfo.user_avatar} style={{width: '100px', height: '80px', cursor: 'pointer'}} alt={''}/>*/}
+              {/*<input className={'uploadImg'} id={'inputFile'} type='file' onChange={this.handleInputChange.bind(this)}/>*/}
             </FormItem>
             <FormItem
               wrapperCol={{

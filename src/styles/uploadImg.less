@@ -1,0 +1,42 @@
+@import "lessConfig";
+
+.img-upload{
+  position: relative;
+  max-width: 200px;
+  max-height: 200px;
+  height: 160px;
+  width: 160px;
+  &:hover{
+    .shade{
+      z-index: 9;
+      transition: all .4s ease;
+      background: rgba(255, 255, 255, .14);
+    }
+  }
+}
+.img-upload img{
+  width: 100%;
+  height: 100%;
+}
+.img-upload input{
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index:10;
+}
+.shade{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  left:0;
+  top:0;
+  cursor: pointer;
+}

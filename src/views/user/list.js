@@ -94,7 +94,7 @@ class UserLists extends Component{
     // console.log(page, pageSize)
   }
   handleAdd = () => {
-    this.props.history.push('/app/user/detail')
+    this.props.history.push('/app/user/add')
   }
   handleEdit = (val) => {
     this.props.history.push({pathname: '/app/user/detail', query: {id: val.id}})
