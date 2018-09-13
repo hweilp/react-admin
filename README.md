@@ -10,6 +10,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # 效果图预览
  ![image](https://github.com/hwhtml/react-admin/blob/master/screenShot/index.jpg)
- ![image](https://github.com/hwhtml/react-admin/blob/master/screenShot/login.jpg)
+ ![image](https://github.com/hwhtml/react-admin/blob/master/screenShot/login.png)
  ![image](https://github.com/hwhtml/react-admin/blob/master/screenShot/user_edit.jpg)
  ![image](https://github.com/hwhtml/react-admin/blob/master/screenShot/user_list.jpg)
