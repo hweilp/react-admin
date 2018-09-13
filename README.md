@@ -5,6 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 # react-router-dom react路由
   Route, Switch, Redirect
 
+# ui
+  Ant [连接](https://ant.design/docs/react/introduce-cn).
+
 # 功能
   登录退出 路由拦截 请求拦截 图片上传 数据的增删改查
 
