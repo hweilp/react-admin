@@ -3,8 +3,8 @@ import Axios from 'axios'
 import { message } from 'antd'
 let qs = require('qs')
 
-// let Base = 'http://www.cqhw.com:8081'
-const Base = ''
+const Base = 'http://www.cqhw.com:8081'
+// const Base = ''
 
 
 //------------------------------ 正常请求 -------------------------------
