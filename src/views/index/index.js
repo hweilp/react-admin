@@ -15,6 +15,7 @@ class Index extends Component{
           <NavLink to="/register">register</NavLink>
           <Arae
             onAreaCallback={this.onAreaCallback.bind(this)}
+            className={'area-view'}
             isThreeLevelLinkage={true}
             defaultValue={['500000', '500100', '500101']}
           />

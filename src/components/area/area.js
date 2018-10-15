@@ -6,7 +6,7 @@ import './area.less'
 export default class Area extends Component{
   static defaultProps =  {
     isThreeLevelLinkage: false, // 是否三级联动
-    areaClassName: '',
+    className: '',
     defaultValue: ['110000', '110100', '110105'], // 默认值 key/value
     onAreaCallback: () => {}
   }
@@ -72,7 +72,7 @@ export default class Area extends Component{
     return (
       <Cascader
         placeholder={'请选择'}
-        className={this.props.areaClassName}
+        className={this.props.className}
         options={this.state.areaList}
         onChange={this.onChange.bind(this)}
         defaultValue={this.props.defaultValue}
