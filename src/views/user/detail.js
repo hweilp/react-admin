@@ -213,7 +213,7 @@ class UserDetailForm extends Component {
                   listType="picture-card"
                   className="avatar-uploader"
                   showUploadList={false}
-                  action={'http://www.hw.com:8081/api/upload'}
+                  action={BaseUrl + '/api/upload'}
                   beforeUpload={beforeUpload}
                   onChange={this.handleInputChange}
                 >

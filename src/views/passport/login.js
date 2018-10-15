@@ -26,6 +26,8 @@ class NormalLoginForm extends Component{
           if (res.code === 2000) {
             message.success(res.msg)
             this.props.dispatch(user_login(res.data))
+          } else {
+            message.error(res.msg)
           }
         })
       }
