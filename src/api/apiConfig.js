@@ -17,7 +17,7 @@ const instanceRequest = Axios.create({
   timeout : 5000,
 });
 
-//------------------------------ http请求拦截器 -------------------------------
+// ------------------------------ http请求拦截器 -------------------------------
 instanceRequest.interceptors.request.use(config => {
   // 配置headers token
   // if (Storage.get('USERINFO').session_id) {
@@ -53,7 +53,7 @@ instanceRequest.interceptors.response.use(data => {
 });
 
 
-// 图片文件上传
+// ------------------------------ 图片文件上传 -------------------------------
 const ImgUploadRequest = Axios.create({
   baseURL : Base,
   headers : {
@@ -63,7 +63,7 @@ const ImgUploadRequest = Axios.create({
   timeout : 5000,
 });
 
-//------------------------------ host -------------------------------
+// ------------------------------ host -------------------------------
 export const BaseUrl = Base;
 export const ImgUpload = ImgUploadRequest;
 export const instance = instanceRequest;
